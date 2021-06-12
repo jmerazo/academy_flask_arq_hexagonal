@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %} {% block tittle %} Sessions {% endblock %} {% block contents %}
+<head>
+    <style>
+        body{
+            background-image: url({{url_for('static', filename='imgs/backg.jpg')}})
+        }
+    </style>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'styles/courses_list.css')}}">
+</head>
+<div class="overlay">
+    <div class="text-end" style="margin-top: 1rem">
+        <a href="{{ url_for('index') }}" type="submit" class="btn btn-outline-light">
+            Home
+        </a>
+        <a href="{{ url_for('create_session_preview') }}" type="submit" class="btn btn-outline-light">
+            Create
+        </a>
+    </div>        
+</div>
+<h1 class=" text-center">Sessions</h1>
+<div class="container">
+    
+    {% for s in sessions %}
+    <div class="container-1">
+        <h1>{{s.4}}</h1>
+        <label for="">Date</label><p>{{s.2}}</p>
+        <label for="">Start Time</label><p>{{s.3}}</p>
+        <label for="">End Time</label><p>{{s.4}}</p>
+        <a method="POST" href="/session/delete/{{ s.0 }}" class="btn btn-danger">
+            🗑️
+        </a>
+        <a href="{{ url_for('assistance_students', ida=s.0) }}" class="btn btn-info">
+            Assistance
+        </a>
+        <a href="{{ url_for('start_session') }}" class="btn btn-success">
+            Start Session
+        </a>
+    </div>
+    {% endfor %}
+</div>
+    
+
+{% endblock %}

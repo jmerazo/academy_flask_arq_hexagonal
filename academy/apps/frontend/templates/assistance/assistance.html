@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %} {% block tittle %} Assistance {% endblock %} {% block contents %}
+<head>
+    <style>
+        body {
+            background-image: url({{url_for('static', filename='imgs/backg.jpg')}})}
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'styles/assistance.css')}}">
+</head>
+
+<div class="overlay">
+    <div class="text-end" style="margin-top: 1rem">
+        <a href="{{ url_for('index') }}" type="submit" class="btn btn-outline-light">
+            Home
+        </a>
+        <a href="{{ url_for('list_sessions') }}" type="submit" class="btn btn-outline-light">
+            List
+        </a>
+    </div>        
+</div>
+<form action="{{ url_for('assistance_validate', ida=ida)}}" method="POST">
+    <table class="table table-responsive table-bordered" style="background-color: whitesmoke" id="urls"
+        cellspacing="10px">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Identification</th>
+                <th scope="col">Names</th>
+                <th scope="col">Lastnames</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+                <td>{{ s.0 }}</td>
+                <input type="hidden" name="ide" value="{{ s.0 }}"/>                
+                <td>{{ s.1 }}</td>
+                <td>{{ s.2 }}</td>
+                <td>{{ s.3 }}</td>
+                <td>{{ s.6 }}</td>
+                <td>
+                    <input name="assistance" value="1" type="checkbox">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center" style="width: 400px">
+        <button type="submit" class="btn btn-light">
+            Validate
+        </button>
+    </div>
+</form>
+
+{% endblock %}

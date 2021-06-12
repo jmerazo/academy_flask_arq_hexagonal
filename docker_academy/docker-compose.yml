@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+
+  academy:
+    image: jmerazo96/academy:1.3
+    environment:
+      VIRTUAL_HOST:  academy.test
+    restart: always
+    ports: 
+      - "5000:5000"
+    depends_on: 
+      - db_academy
+  
+  db_academy:
+    image: jmerazo96/db_academy:1.0
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3309:3309"
+    environment:
+      MYSQL_USER: jmerazo
+      MYSQL_ROOT_PASSWORD: Jmerazo96*
+      MYSQL_DATABASE: academy_flask
+      MYSQL_DATABASE_HOST: db_academy
+      MYSQL_PASSWORD: Jmerazo96*
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+    restart: always
+    privileged: true
+    
+    

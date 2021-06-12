@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+
+  db_academy:
+    build: .
+    image: 'db_academy'
+    container_name: db_academy
+    restart: "always"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3309:3309"
+    environment:
+      MYSQL_USER: jmerazo
+      MYSQL_ROOT_PASSWORD: Jmerazo96*
+      MYSQL_DATABASE: academy
+      MYSQL_PASSWORD: Jmerazo96*
+    volumes:
+      - ./academy.sql:/docker-entrypoint-initdb.d/academy.sql

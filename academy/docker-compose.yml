@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  academy:
+    build: .
+    image: 'academy'
+    container_name: academy
+    restart: "always"
+    ports:
+      - 5000:5000
